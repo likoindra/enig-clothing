@@ -1,7 +1,9 @@
 import React from "react";
+// fungsi yang memberikan component yang termodifikasi dan me return component yang sudah termodifikasi
+import { withRouter } from "react-router-dom"
 import "./menu-item.styles.scss";
 
-const MenuItem = ({ title, imageUrl, size }) => {
+const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
   return (
     <div
       // secara dynamic akan mengganti imageUrl yang sudah ada
@@ -9,6 +11,7 @@ const MenuItem = ({ title, imageUrl, size }) => {
       //     backgroundImage: `url(${imageUrl})`
       //   }}
       className={`${size} menu-item`}
+      onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
       {/* menambah hover  efect pada box putih  */}
       <div
@@ -26,4 +29,4 @@ const MenuItem = ({ title, imageUrl, size }) => {
   );
 };
 
-export default MenuItem;
+export default withRouter(MenuItem);
