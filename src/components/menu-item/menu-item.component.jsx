@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom"
 import "./menu-item.styles.scss";
 
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
+  // console.log(title, 'titile cuy')
   return (
     <div
       // secara dynamic akan mengganti imageUrl yang sudah ada
@@ -15,6 +16,7 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
     >
       {/* menambah hover  efect pada box putih  */}
       <div
+      
         className="background-image"
         style={{
           backgroundImage: `url(${imageUrl})`,
@@ -30,3 +32,4 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
 };
 
 export default withRouter(MenuItem);
+// export default MenuItem;

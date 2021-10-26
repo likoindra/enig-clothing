@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "core-decorators": "^0.20.0",
     "node-sass": "^4.11.0",
     "react": "^17.0.1",
     "react-dom": "^16.8.6",
@@ -23,5 +24,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
 }
