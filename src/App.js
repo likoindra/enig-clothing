@@ -2,12 +2,13 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/Homepage/homepage.component'
+import ShopPage from './pages/Shop/shop.component'
 
-const HatsPage = () => (
-  <div>
-    <h1>HATS PAGE </h1>
-  </div>
-)
+// const HatsPage = () => (
+//   <div>
+//     <h1>HATS PAGE </h1>
+//   </div>
+// )
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         {/* bagian HomePage adalah bagian awal jadi untuk path nya hanya '/'  */}
         {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
         <Route exact path="/" component={HomePage} />
-        <Route path="/hats" component={HatsPage} />
+        <Route path="/shop" component={ShopPage} />
+        {/* <Route path="/hats" component={HatsPage} /> */}
       </Switch>
     </div>
   )
