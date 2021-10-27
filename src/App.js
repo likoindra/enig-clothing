@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/Homepage/homepage.component'
 import ShopPage from './pages/Shop/shop.component'
+import Header from './components/header/header-component'
 
 // const HatsPage = () => (
 //   <div>
@@ -13,6 +14,8 @@ import ShopPage from './pages/Shop/shop.component'
 function App() {
   return (
     <div>
+      {/* Header akan terus muncul pada web, Header akan menjadi tombol nacgigas */}
+      <Header/>
       <Switch>
         {/* bagian HomePage adalah bagian awal jadi untuk path nya hanya '/'  */}
         {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
