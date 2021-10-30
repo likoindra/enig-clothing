@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './header.styles.scss'
 
+// special syntax saat meng- import SVG di React
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 
 const Header = () => (

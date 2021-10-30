@@ -4,6 +4,7 @@ import './App.css'
 import HomePage from './pages/Homepage/homepage.component'
 import ShopPage from './pages/Shop/shop.component'
 import Header from './components/header/header-component'
+import SignInAndSignUpPage from './pages/SignInAndSignUp/sign-in-and-sign-up.component'
 
 // const HatsPage = () => (
 //   <div>
@@ -21,6 +22,7 @@ function App() {
         {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
+        <Route path="/signin" component={SignInAndSignUpPage} />
         {/* <Route path="/hats" component={HatsPage} /> */}
       </Switch>
     </div>
