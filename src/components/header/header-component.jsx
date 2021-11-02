@@ -6,8 +6,10 @@ import './header.styles.scss'
 
 // special syntax saat meng- import SVG di React
 import { ReactComponent as Logo } from '../../assets/crown.svg'
+import CartIcon from '../cart-icon/cart-icon.component'
+import CartDropdown from '../cart/cart-dropdown.component'
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />
@@ -29,21 +31,21 @@ const Header = ({ currentUser }) => (
           SIGN IN
         </Link>
       )}
-      
-      
-      {/* Drilling props is bad pattern */}
+
+      <CartIcon />
     </div>
+
+    {hidden ? null : <CartDropdown />}
   </div>
 )
 
-
-
-// this naming can be anything. it just standard from redux 
-// state di bawahh ini adalah root-reducer 
-const mapStateToProps  = state => ({
-  currentUser: state.user.currentUser
+// this naming can be anything. it just standard from redux
+// state di bawahh ini adalah root-reducer
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 })
-// pass 2 function from importing connect 
+// pass 2 function from importing connect
 // allow to connect to state
 // passing mapTostate inside connect()
 export default connect(mapStateToProps)(Header)

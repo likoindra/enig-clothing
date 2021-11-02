@@ -80,7 +80,11 @@ class App extends React.Component {
             exact
             path="/signin"
             render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : (<SignInAndSignUpPage/>)
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
             }
           />
           {/* using  */}
@@ -105,12 +109,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(App)
 //   render() {
 //     return (
 //       <div className="App">
-{
-}
-{
-  /* <Route exact path="/" component={HomePage}/>
+
+/* <Route exact path="/" component={HomePage}/>
         <Route exact path="/hats" component={HatsPage}/> */
-}
+
 //       </div>
 //     );
 //   }
