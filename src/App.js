@@ -36,23 +36,26 @@ class App extends React.Component {
           // snapshot.data akan memuncullakan data dari firebase ke dalam web
           // yang di dalamnya adalah id
           // console.log(snapShot.data())
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data(),
+          this.setState(
+            {
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data(),
+              },
             },
-          }, ()=> {
-            console.log(this.state)
-          })
+            // , ()=> {
+            //   console.log(this.state)
+            // }
+          )
 
-          console.log(this.state)
+          // console.log(this.state)
         })
       }
       // createUserProfileDocument(user)
       // this.setState({ currentUser: user })
 
       // jika user logout akan mengembalikan fungsi null di userAuth
-      this.setState({currentUser: userAuth})
+      this.setState({ currentUser: userAuth })
       // console.log(user)
     })
   }
