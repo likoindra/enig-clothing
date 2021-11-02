@@ -1,11 +1,13 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import './App.css'
 import HomePage from './pages/Homepage/homepage.component'
 import ShopPage from './pages/Shop/shop.component'
 import Header from './components/header/header-component'
 import SignInAndSignUpPage from './pages/SignInAndSignUp/sign-in-and-sign-up.component'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+import { setCurrentUser } from './redux/user/user.action'
 // const HatsPage = () => (
 //   <div>
 //     <h1>HATS PAGE </h1>
@@ -13,18 +15,19 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 // )
 
 class App extends React.Component {
-  // menggunkaan class component dengan extends React.Component untuk mengakses state
-  constructor() {
-    super()
+  // // menggunkaan class component dengan extends React.Component untuk mengakses state
+  // constructor() {
+  //   super()
 
-    this.state = {
-      currentUser: null,
-    }
-  }
+  //   this.state = {
+  //     currentUser: null,
+  //   }
+  // }
   // firebase method
   unsubscribeFromAuth = null
 
   componentDidMount() {
+    const { setCurrentUser } = this.props
     // firebase method that call auth
     // open messaging system betwee application and firebase
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -36,12 +39,10 @@ class App extends React.Component {
           // snapshot.data akan memuncullakan data dari firebase ke dalam web
           // yang di dalamnya adalah id
           // console.log(snapShot.data())
-          this.setState(
+          setCurrentUser(
             {
-              currentUser: {
-                id: snapShot.id,
-                ...snapShot.data(),
-              },
+              id: snapShot.id,
+              ...snapShot.data(),
             },
             // , ()=> {
             //   console.log(this.state)
@@ -68,13 +69,21 @@ class App extends React.Component {
     return (
       <div>
         {/* Header akan terus muncul pada web, Header akan menjadi tombol nacgigas */}
-        <Header currentUser={this.state.currentUser} />
+        {/* <Header currentUser={this.state.currentUser} /> */}
+        <Header />
         <Switch>
           {/* bagian HomePage adalah bagian awal jadi untuk path nya hanya '/'  */}
           {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignInAndSignUpPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : (<SignInAndSignUpPage/>)
+            }
+          />
+          {/* using  */}
           {/* <Route path="/hats" component={HatsPage} /> */}
         </Switch>
       </div>
@@ -82,7 +91,15 @@ class App extends React.Component {
   }
 }
 
-export default App
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 
 // class App extends Component {
 //   render() {
