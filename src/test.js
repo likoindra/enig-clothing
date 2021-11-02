@@ -1,7 +1,8 @@
-import {decorate} from 'core-decorators'
+// import {decorate} from 'core-decorators'
 
 
-class Foo {
-  @decorate()
-  method() {}
-}
+// class Foo {
+//   @decorate()
+//   method() {}
+// }
+

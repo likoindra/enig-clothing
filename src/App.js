@@ -5,7 +5,7 @@ import HomePage from './pages/Homepage/homepage.component'
 import ShopPage from './pages/Shop/shop.component'
 import Header from './components/header/header-component'
 import SignInAndSignUpPage from './pages/SignInAndSignUp/sign-in-and-sign-up.component'
-import { auth } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 // const HatsPage = () => (
 //   <div>
 //     <h1>HATS PAGE </h1>
@@ -27,9 +27,32 @@ class App extends React.Component {
   componentDidMount() {
     // firebase method that call auth
     // open messaging system betwee application and firebase
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth)
 
+        // firebase method
+        userRef.onSnapshot((snapShot) => {
+          // snapshot.data akan memuncullakan data dari firebase ke dalam web
+          // yang di dalamnya adalah id
+          // console.log(snapShot.data())
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          }, ()=> {
+            console.log(this.state)
+          })
+
+          console.log(this.state)
+        })
+      }
+      // createUserProfileDocument(user)
+      // this.setState({ currentUser: user })
+
+      // jika user logout akan mengembalikan fungsi null di userAuth
+      this.setState({currentUser: userAuth})
       // console.log(user)
     })
   }
@@ -42,7 +65,7 @@ class App extends React.Component {
     return (
       <div>
         {/* Header akan terus muncul pada web, Header akan menjadi tombol nacgigas */}
-        <Header currentUser={this.state.currentUser}/>
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           {/* bagian HomePage adalah bagian awal jadi untuk path nya hanya '/'  */}
           {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
