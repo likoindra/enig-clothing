@@ -1,13 +1,17 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 import './App.css'
 import HomePage from './pages/Homepage/homepage.component'
 import ShopPage from './pages/Shop/shop.component'
 import Header from './components/header/header-component'
 import SignInAndSignUpPage from './pages/SignInAndSignUp/sign-in-and-sign-up.component'
+
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/user/user.action'
+import { selectCurrentUser } from './redux/user/user-selector'
+import CheckoutPage from './pages/Checkout/checkout.compoenent'
 // const HatsPage = () => (
 //   <div>
 //     <h1>HATS PAGE </h1>
@@ -76,6 +80,7 @@ class App extends React.Component {
           {/* Route hanya melempar 1 child yaitu child didalam itu sendiri */}
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/signin"
@@ -95,8 +100,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (createStructuredSelector) ({
+  currentUser: selectCurrentUser,
 })
 
 const mapDispatchToProps = (dispatch) => ({

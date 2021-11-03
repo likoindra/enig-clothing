@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 
 import { toggleCartHidden } from '../../redux/cart/cart.action'
 // method di dalam import ini akan menggantikan method itemCount, yang dimana cartItems.reduce akan dipindah ke cart-selector dan mengembalikan ke dalam cart-icon
@@ -21,9 +22,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 // method ini akan meng-akumulasi angka yang ada pada dalam quantity
-const mapSateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state)
-  // cartItems.reduce(
+const mapSateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount,
   //   (accumalatedQuantity, cartItem) => accumalatedQuantity + cartItem.quantity,
   //   0,
   // ),

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 import { auth } from '../../firebase/firebase.utils'
 import './header.styles.scss'
 
@@ -8,6 +9,8 @@ import './header.styles.scss'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart/cart-dropdown.component'
+import { selectCartHidden } from '../../redux/cart/cart-selector'
+import { selectCurrentUser } from '../../redux/user/user-selector'
 
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
@@ -41,9 +44,10 @@ const Header = ({ currentUser, hidden }) => (
 
 // this naming can be anything. it just standard from redux
 // state di bawahh ini adalah root-reducer
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+// createStructuredSelector akan otomatis me-ngoper state yang sudah di buat di selector
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 })
 // pass 2 function from importing connect
 // allow to connect to state
